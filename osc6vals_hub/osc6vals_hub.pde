@@ -47,6 +47,32 @@ void draw() {
   
   // but look at the event handlers below ...
   
+  for (int i = 0; i < balls.size(); i++) { // iterate through all the balls .
+  
+    // An ArrayList doesn't know what it is storing,
+    // so we have to cast the object coming out.
+    Ball theNextBall = (Ball) balls.get(i);
+    theNextBall.move();
+    theNextBall.display();
+    if (theNextBall.offScreen()) {
+      // Items can be deleted with remove(). now its gone
+        balls.remove(i);
+    }
+    
+    if (theNextBall.blocked() ) {
+      // do stuff
+    } 
+    
+    
+  } 
+  
+  // for all the balls -- see if they are on screen
+  // if they fell off dispose of them -- with remove 
+  // check for hit 
+  // if its a hit get the color and send it to everyone .
+  color myBallColor = ball[whichBall].getColor();
+  
+  
 }
  
 
@@ -84,24 +110,16 @@ void oscEvent(OscMessage theOscMessage) {
   /* print the address pattern and the typetag of the received OscMessage */
   println("### received an osc message.");
   println("    addrpattern: " + theOscMessage.addrPattern());
-  String s =  theOscMessage.addrPattern();
-                  //          if (s.equals("/test")) {
-                  //            println("addressPattern = '/test'");
-                  //            // put other code here -- if the patterns match
-                  //          } else {
-                  //            println("add patt does not match '/test'");
-                  //            // put other code here for what do if patterns do not match 
-                  //          }
-    
-  println("    typetag: " + theOscMessage.typetag());
-  println();
-  
+
  int x= theOscMessage.get(0).intValue();
    int y = theOscMessage.get(1).intValue();
     int z = theOscMessage.get(2).intValue();
      int r = theOscMessage.get(3).intValue();
       int gr = theOscMessage.get(4).intValue();
        int b = theOscMessage.get(5).intValue();
+       
+       // NEW BALL OBJECT HERE __ ADD to array list
+       
        
        fill(r,gr,b);
        
